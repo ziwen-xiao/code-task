@@ -40,4 +40,11 @@ public class ScheduleRepository {
     public List<Schedule> getValidScheduleList() {
         return validScheduleList;
     }
+
+    public List<Schedule> getValidScheduleByStation(String stationName) {
+        return validScheduleList
+                .stream()
+                .filter(s -> s.getDepartureStation().equals(stationName))
+                .collect(Collectors.toList());
+    }
 }

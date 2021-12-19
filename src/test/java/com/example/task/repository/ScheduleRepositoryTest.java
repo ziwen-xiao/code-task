@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @SpringBootTest
 public class ScheduleRepositoryTest {
@@ -28,6 +30,20 @@ public class ScheduleRepositoryTest {
                 .destinationStation("B")
                 .distance(5)
                 .build();
-        Assertions.assertEquals(expectedSchedule, actualScheduleList.get(0));
+        assertEquals(expectedSchedule, actualScheduleList.get(0));
+    }
+
+    @Test
+    void should_return_correct_valid_schedule_list_according_to_departure_station() {
+        List<Schedule> result = scheduleRepository.getValidScheduleByStation("A");
+        Schedule expect = Schedule
+                .builder()
+                .route("AB")
+                .departureStation("A")
+                .destinationStation("B")
+                .distance(5)
+                .build();
+        assertEquals(3, result.size());
+        assertEquals(expect, result.get(0));
     }
 }
