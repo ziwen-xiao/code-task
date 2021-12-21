@@ -1,17 +1,16 @@
 package com.example.task.repository;
 
-import com.example.task.model.Schedule;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Repository;
+import static com.example.task.context.Context.SCHEDULE_FILE_PATH;
 
-import javax.annotation.PostConstruct;
+import com.example.task.model.Schedule;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static com.example.task.context.Context.SCHEDULE_FILE_PATH;
+import javax.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 @Slf4j
 @Repository
@@ -21,16 +20,25 @@ public class ScheduleRepository {
 
     @PostConstruct
     public void setUp() {
-        try{
-            validScheduleList = Files.readAllLines(Paths.get(SCHEDULE_FILE_PATH)).stream()
-                    .map(validSchedule ->
+        try {
+            validScheduleList =
+                Files
+                    .readAllLines(Paths.get(SCHEDULE_FILE_PATH))
+                    .stream()
+                    .map(
+                        validSchedule ->
                             Schedule
-                                    .builder()
-                                    .route(validSchedule.substring(0, 2))
-                                    .departureStation(validSchedule.substring(0, 1))
-                                    .destinationStation(validSchedule.substring(1, 2))
-                                    .distance(Integer.parseInt(validSchedule.substring(2)))
-                                    .build())
+                                .builder()
+                                .route(validSchedule.substring(0, 2))
+                                .departureStation(validSchedule.substring(0, 1))
+                                .destinationStation(
+                                    validSchedule.substring(1, 2)
+                                )
+                                .distance(
+                                    Integer.parseInt(validSchedule.substring(2))
+                                )
+                                .build()
+                    )
                     .collect(Collectors.toList());
         } catch (IOException e) {
             log.error("read schedule file failed");
@@ -43,8 +51,8 @@ public class ScheduleRepository {
 
     public List<Schedule> getValidScheduleByStation(String stationName) {
         return validScheduleList
-                .stream()
-                .filter(s -> s.getDepartureStation().equals(stationName))
-                .collect(Collectors.toList());
+            .stream()
+            .filter(s -> s.getDepartureStation().equals(stationName))
+            .collect(Collectors.toList());
     }
 }

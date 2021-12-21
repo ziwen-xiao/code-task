@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SolutionRequest {
+
     String start;
     String end;
     Integer limit;

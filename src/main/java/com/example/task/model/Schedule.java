@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Schedule {
+
     private String route;
     private String departureStation;
     private String destinationStation;

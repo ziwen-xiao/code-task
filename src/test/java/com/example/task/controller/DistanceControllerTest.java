@@ -1,5 +1,3 @@
 package com.example.task.controller;
 
-public class DistanceControllerTest {
-
-}
+public class DistanceControllerTest {}
