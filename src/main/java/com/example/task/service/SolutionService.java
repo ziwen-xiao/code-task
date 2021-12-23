@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class SolutionService {
 
+    //TODO 1: 一般ScheduleRepository应该为接口，而不是具体的实现类。从而实现业务和底层数据的存取隔离开
     private final ScheduleRepository scheduleRepository;
 
     // 获取所有路线
@@ -60,6 +61,7 @@ public class SolutionService {
     }
 
     // N站以内所有路线
+    //TODO 2，见 DistanceService
     public String getTripsNumberWithinLimitStations(
         String start,
         String end,
@@ -79,6 +81,7 @@ public class SolutionService {
     }
 
     // 恰好等于N站所有路线
+    //TODO 2，见 DistanceService
     public String getTripsNumberOfExactStations(
         String start,
         String end,
